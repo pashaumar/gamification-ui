@@ -35,7 +35,7 @@ const RewardModal = ({ handleOpenModal }) => {
     reward_with: false,
   });
 
-  const handleUpdateData = (fieldKey, newValue) => {
+  const handleUpdateModalData = (fieldKey, newValue) => {
     setModalData((prev) => ({
       ...prev,
       [fieldKey]: newValue,
@@ -75,7 +75,7 @@ const RewardModal = ({ handleOpenModal }) => {
     handleOpenModal(false);
   };
 
-  const handleSave = () => {
+  const handleCreate = () => {
     handleOpenModal(false);
   };
 
@@ -94,7 +94,7 @@ const RewardModal = ({ handleOpenModal }) => {
         </DialogHeader>
 
         <ModalContent
-          handleUpdateData={handleUpdateData}
+          handleUpdateModalData={handleUpdateModalData}
           modalData={modalData}
           dropdownOpenMap={dropdownOpenMap}
           handleDropdownState={handleDropdownState}
@@ -111,7 +111,7 @@ const RewardModal = ({ handleOpenModal }) => {
 
           <Button
             className="w-[168px] h-[40px] bg-[#C530C5] border border-[#C530C5] cursor-pointer"
-            onClick={handleSave}
+            onClick={handleCreate}
             disabled={isCreateButtonDisabled}
           >
             Create Reward

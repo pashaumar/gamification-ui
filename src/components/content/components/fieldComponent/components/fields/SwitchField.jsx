@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { Switch } from "@/components/ui/switch";
-import DatePickerField from "../date/DatePickerField";
+import DatePickerField from "./DatePickerField";
 
-const SwitchField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
+const SwitchField = ({
+  fieldConfig,
+  value,
+  handleUpdateModalData,
+  fieldKey,
+}) => {
   const { label, subtitle } = fieldConfig;
   const [dateOpen, setDateOpen] = useState(false);
 
   const isEnabled = !!value?.enabled;
 
   const handleToggle = (checked) => {
-    handleUpdateData(fieldKey, {
+    handleUpdateModalData(fieldKey, {
       enabled: checked,
       date: value?.date || null,
     });
@@ -20,7 +25,7 @@ const SwitchField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
   };
 
   const handleDateSelect = (date) => {
-    handleUpdateData(fieldKey, {
+    handleUpdateModalData(fieldKey, {
       ...value,
       date,
     });

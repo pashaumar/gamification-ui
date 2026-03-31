@@ -3,7 +3,7 @@ import FieldComponent from "../fieldComponent/FieldComponent";
 import template from "../templates/reward.json";
 
 const ModalContent = ({
-  handleUpdateData,
+  handleUpdateModalData,
   modalData,
   dropdownOpenMap,
   handleDropdownState,
@@ -19,12 +19,12 @@ const ModalContent = ({
           fieldKey={fieldKey}
           fieldConfig={field_list[fieldKey]}
           value={modalData[fieldKey]}
-          handleUpdateData={handleUpdateData}
+          handleUpdateModalData={handleUpdateModalData}
           open={dropdownOpenMap[fieldKey]}
           handleDropdownState={(isOpen) =>
             handleDropdownState(fieldKey, isOpen)
           }
-          onSave={() => handleDropdownSave(fieldKey)}
+          handleDropdownSave={() => handleDropdownSave(fieldKey)}
         />
       ))}
     </div>

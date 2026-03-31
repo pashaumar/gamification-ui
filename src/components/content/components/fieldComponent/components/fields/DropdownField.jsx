@@ -8,15 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 import { getSelectedOption, replaceDynamicChars } from "../../utils";
-import DollarInputField from "../dropdown/DollarInputField";
-import PeriodInputField from "../dropdown/PeriodInputField";
+import DollarInputField from "./DollarInputField";
+import PeriodInputField from "./PeriodInputField";
 
 const DropdownField = ({
   fieldConfig,
   value,
-  handleUpdateData,
+  handleUpdateModalData,
   fieldKey,
-  onSave,
+  handleDropdownSave,
   open,
   handleDropdownState,
 }) => {
@@ -35,7 +35,7 @@ const DropdownField = ({
   }, [selectedOption, value?.dynamicValues, placeholder]);
 
   const updateFieldValue = (nextValue) => {
-    handleUpdateData(fieldKey, nextValue);
+    handleUpdateModalData(fieldKey, nextValue);
   };
 
   const clearSelection = () => {
@@ -55,8 +55,8 @@ const DropdownField = ({
 
     if (!item.extendedUIType) {
       handleDropdownState(false);
-      if (onSave) {
-        onSave(fieldKey);
+      if (handleDropdownSave) {
+        handleDropdownSave(fieldKey);
       }
     }
   };
@@ -191,14 +191,10 @@ const DropdownField = ({
 
               <Button
                 disabled={!getSaveDisabledState()}
-                className={
-                  "h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] " +
-                  "text-[white] bg-[#C530C5] cursor-pointer " +
-                  "disabled:opacity-50 disabled:cursor-not-allowed"
-                }
+                className={`h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] text-[white] bg-[#C530C5] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed`}
                 onClick={() => {
                   handleDropdownState(false);
-                  onSave(fieldKey);
+                  handleDropdownSave(fieldKey);
                 }}
               >
                 Save

@@ -5,11 +5,11 @@ import SwitchField from "./components/fields/SwitchField";
 const FieldComponent = ({
   fieldConfig,
   value,
-  handleUpdateData,
+  handleUpdateModalData,
   fieldKey,
   open,
   handleDropdownState,
-  onSave,
+  handleDropdownSave,
 }) => {
   switch (fieldConfig.uiType) {
     case "Dropdown":
@@ -17,11 +17,11 @@ const FieldComponent = ({
         <DropdownField
           fieldConfig={fieldConfig}
           value={value}
-          handleUpdateData={handleUpdateData}
+          handleUpdateModalData={handleUpdateModalData}
           fieldKey={fieldKey}
           open={!!open}
           handleDropdownState={handleDropdownState}
-          onSave={onSave}
+          handleDropdownSave={handleDropdownSave}
         />
       );
 
@@ -30,7 +30,7 @@ const FieldComponent = ({
         <SwitchField
           fieldConfig={fieldConfig}
           value={value}
-          handleUpdateData={handleUpdateData}
+          handleUpdateModalData={handleUpdateModalData}
           fieldKey={fieldKey}
         />
       );
