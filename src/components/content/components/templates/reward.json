@@ -1,0 +1,56 @@
+{
+  "body": {
+    "fields": ["reward_event", "reward_with", "reward_time"],
+
+    "field_list": {
+      "reward_event": {
+        "label": "Reward event",
+        "uiType": "Dropdown",
+        "placeholder": "Select an event",
+        "options": [
+          {
+            "id": "sales",
+            "label": "Cross $X in sales",
+            "extendedUIType": "Dollar_Input",
+            "dynamicChars": ["X"]
+          },
+          {
+            "id": "period",
+            "label": "Posts X times every Y period",
+            "extendedUIType": "Period_Input",
+            "dynamicChars": ["X", "Y"]
+          },
+          {
+            "id": "onboarded",
+            "label": "Is Onboarded",
+            "extendedUIType": ""
+          }
+        ]
+      },
+      "reward_with": {
+        "label": "Reward with",
+        "uiType": "Dropdown",
+        "placeholder": "Select a reward",
+        "options": [
+          {
+            "id": "bonus",
+            "label": "Flat $X bonus",
+            "extendedUIType": "Dollar_Input",
+            "dynamicChars": ["X"]
+          },
+          {
+            "id": "period",
+            "label": "Upgrade Commission Tier",
+            "extendedUIType": ""
+          }
+        ]
+      },
+      "reward_time": {
+        "label": "Make the reward time bound",
+        "subtitle": "Choose an end date to stop this reward automatically.",
+        "uiType": "Switch"
+      }
+    }
+  },
+  "id": "reward"
+}
