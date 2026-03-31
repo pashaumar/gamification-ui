@@ -69,7 +69,7 @@ const DropdownField = ({
     });
   };
 
-  const isExtendedUIValid = () => {
+  const getSaveDisabledState = () => {
     const { X: xValue, Y: yValue } = value?.dynamicValues || {};
 
     switch (selectedOption?.extendedUIType) {
@@ -80,13 +80,11 @@ const DropdownField = ({
         return xValue && xValue !== "" && yValue && yValue !== "";
 
       default:
-        return true;
+        return false;
     }
   };
 
   const renderExtendedUI = () => {
-    if (!selectedOption?.extendedUIType) return null;
-
     switch (selectedOption?.extendedUIType) {
       case "Dollar_Input":
         return (
@@ -182,7 +180,7 @@ const DropdownField = ({
             </Button>
 
             <Button
-              disabled={!isExtendedUIValid()}
+              disabled={!getSaveDisabledState()}
               className={
                 "h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] " +
                 "text-[white] bg-[#C530C5] cursor-pointer " +
