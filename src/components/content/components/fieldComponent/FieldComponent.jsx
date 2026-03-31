@@ -1,6 +1,6 @@
 import React from "react";
-import DropdownField from "./components/fields/DropdownField";
-import SwitchField from "./components/fields/SwitchField";
+import DropdownField from "./components/dropdownField/DropdownField";
+import SwitchField from "./components/switchField/SwitchField";
 
 const FieldComponent = ({
   fieldConfig,

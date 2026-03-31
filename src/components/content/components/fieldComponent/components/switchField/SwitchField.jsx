@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Switch } from "@/components/ui/switch";
-import DatePickerField from "./DatePickerField";
+import DatePickerField from "../datePickerField/DatePickerField";
 
 const SwitchField = ({
   fieldConfig,

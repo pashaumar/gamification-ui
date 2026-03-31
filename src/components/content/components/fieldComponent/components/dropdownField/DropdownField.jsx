@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 import { getSelectedOption, replaceDynamicChars } from "../../utils";
-import DollarInputField from "./DollarInputField";
-import PeriodInputField from "./PeriodInputField";
+import DollarInputField from "../dollarInputField/DollarInputField";
+import PeriodInputField from "../periodInputField/PeriodInputField";
 
 const DropdownField = ({
   fieldConfig,

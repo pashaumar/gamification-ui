@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { numbersOnly } from "../../utils";
-import PeriodSelect from "./PeriodSelect";
+import PeriodSelect from "../periodSelect/PeriodSelect";
 
 const PeriodInputField = ({
   xValue,
