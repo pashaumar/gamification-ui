@@ -5,6 +5,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Check, ChevronDown, ChevronUp, Edit2 } from "lucide-react";
 
 import { getSelectedOption, replaceDynamicChars } from "../../utils";
@@ -79,9 +84,7 @@ const DropdownField = ({
 
     if (!item.extendedUIType) {
       handleDropdownState(false);
-      if (handleDropdownSave) {
-        handleDropdownSave(fieldKey);
-      }
+      handleDropdownSave(fieldKey);
     }
   };
 
@@ -113,6 +116,26 @@ const DropdownField = ({
       default:
         return false;
     }
+  };
+
+  const getSaveButtonTooltip = () => {
+    const { X: xValue } = value?.dynamicValues || {};
+
+    switch (selectedOption?.extendedUIType) {
+      case "Dollar_Input":
+        if (!xValue || xValue === "") {
+          const isSalesEvent = selectedOption?.label.includes("Cross");
+          return isSalesEvent
+            ? "Enter the sales target amount to continue"
+            : "Enter the bonus amount to continue";
+        }
+        break;
+
+      default:
+        return "";
+    }
+
+    return "";
   };
 
   const renderExtendedUI = () => {
@@ -167,7 +190,7 @@ const DropdownField = ({
         className="hover:text-[#C530C5] transition-colors p-1"
         aria-label="Edit tier selection"
       >
-        <Edit2 className="h-4 w-4" />
+        <Edit2 className="h-4 w-4 cursor-pointer" />
       </button>
     );
   };
@@ -269,16 +292,31 @@ const DropdownField = ({
                 Cancel
               </Button>
 
-              <Button
-                disabled={!getSaveDisabledState()}
-                className={`h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] text-[white] bg-[#C530C5] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed`}
-                onClick={() => {
-                  handleDropdownState(false);
-                  handleDropdownSave(fieldKey);
-                }}
-              >
-                Save
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="inline-block flex-1">
+                    <Button
+                      disabled={!getSaveDisabledState()}
+                      className={`h-[40px] w-full rounded-[10px] border-[#C530C5] text-[16px] text-[white] bg-[#C530C5] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed`}
+                      onClick={() => {
+                        handleDropdownState(false);
+                        handleDropdownSave(fieldKey);
+                      }}
+                    >
+                      Save
+                    </Button>
+                  </span>
+                </TooltipTrigger>
+
+                {!getSaveDisabledState() && getSaveButtonTooltip() && (
+                  <TooltipContent
+                    side="bottom"
+                    className="[&_svg]:hidden text-xs"
+                  >
+                    <p className="text-[12px]">{getSaveButtonTooltip()}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
             </div>
           )}
         </PopoverContent>

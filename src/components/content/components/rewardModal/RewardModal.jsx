@@ -7,6 +7,11 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import ModalContent from "../modalContent/ModalContent";
 
@@ -86,6 +91,25 @@ const RewardModal = ({ handleOpenModal }) => {
     !modalData.reward_with.selectedId ||
     (modalData.reward_time.enabled && !modalData.reward_time.date);
 
+  const getTooltipMessage = () => {
+    const { reward_event, reward_with, reward_time } = modalData;
+
+    if (
+      reward_event.selectedId &&
+      reward_with.selectedId &&
+      reward_time.enabled &&
+      !reward_time.date
+    ) {
+      return "Choose reward end date to continue";
+    }
+
+    if (!reward_event.selectedId || !reward_with.selectedId) {
+      return "Choose a reward trigger and a reward to continue";
+    }
+
+    return "";
+  };
+
   return (
     <Dialog open={true} onOpenChange={handleOpenModal}>
       <DialogContent className="w-[400px] min-h-[372px] max-h-[420px] p-6 flex flex-col justify-between">
@@ -111,13 +135,29 @@ const RewardModal = ({ handleOpenModal }) => {
             Cancel
           </Button>
 
-          <Button
-            className="w-[168px] h-[40px] bg-[#C530C5] border border-[#C530C5] cursor-pointer"
-            onClick={handleCreate}
-            disabled={isCreateButtonDisabled}
-          >
-            Create Reward
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="inline-block">
+                <Button
+                  className={`w-[168px] h-[40px] bg-[#C530C5] border border-[#C530C5] ${
+                    isCreateButtonDisabled
+                      ? "pointer-events-none"
+                      : "cursor-pointer"
+                  }`}
+                  onClick={handleCreate}
+                  disabled={isCreateButtonDisabled}
+                >
+                  Create Reward
+                </Button>
+              </span>
+            </TooltipTrigger>
+
+            {isCreateButtonDisabled && (
+              <TooltipContent side="bottom" className="[&_svg]:hidden text-xs">
+                <p className="text-[12px]">{getTooltipMessage()}</p>
+              </TooltipContent>
+            )}
+          </Tooltip>
         </DialogFooter>
       </DialogContent>
     </Dialog>
