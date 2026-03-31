@@ -52,6 +52,14 @@ const DropdownField = ({
       dynamicValues: {},
       renderedLabel: item.label,
     });
+
+    // Close dropdown if option has no extended UI type
+    if (!item.extendedUIType) {
+      handleDropdownState(false);
+      if (onSave) {
+        onSave(fieldKey);
+      }
+    }
   };
 
   const updateDynamicValue = (key, nextValue) => {
@@ -168,32 +176,34 @@ const DropdownField = ({
             );
           })}
 
-          <div className="mt-2 flex gap-3">
-            <Button
-              variant="outline"
-              className="h-[40px] flex-1 rounded-[10px] border-[#E3E3E3] text-[16px] text-[#303030] cursor-pointer"
-              onClick={() => {
-                handleDropdownState(false);
-              }}
-            >
-              Cancel
-            </Button>
+          {selectedOption?.extendedUIType && (
+            <div className="mt-2 flex gap-3">
+              <Button
+                variant="outline"
+                className="h-[40px] flex-1 rounded-[10px] border-[#E3E3E3] text-[16px] text-[#303030] cursor-pointer"
+                onClick={() => {
+                  handleDropdownState(false);
+                }}
+              >
+                Cancel
+              </Button>
 
-            <Button
-              disabled={!getSaveDisabledState()}
-              className={
-                "h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] " +
-                "text-[white] bg-[#C530C5] cursor-pointer " +
-                "disabled:opacity-50 disabled:cursor-not-allowed"
-              }
-              onClick={() => {
-                handleDropdownState(false);
-                onSave(fieldKey);
-              }}
-            >
-              Save
-            </Button>
-          </div>
+              <Button
+                disabled={!getSaveDisabledState()}
+                className={
+                  "h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] " +
+                  "text-[white] bg-[#C530C5] cursor-pointer " +
+                  "disabled:opacity-50 disabled:cursor-not-allowed"
+                }
+                onClick={() => {
+                  handleDropdownState(false);
+                  onSave(fieldKey);
+                }}
+              >
+                Save
+              </Button>
+            </div>
+          )}
         </PopoverContent>
       </Popover>
     </div>
