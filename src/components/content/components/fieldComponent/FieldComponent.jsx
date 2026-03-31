@@ -8,7 +8,7 @@ const FieldComponent = ({
   handleUpdateData,
   fieldKey,
   open,
-  onOpenChange,
+  handleDropdownState,
   onSave,
 }) => {
   switch (fieldConfig.uiType) {
@@ -20,7 +20,7 @@ const FieldComponent = ({
           handleUpdateData={handleUpdateData}
           fieldKey={fieldKey}
           open={!!open}
-          onOpenChange={onOpenChange}
+          handleDropdownState={handleDropdownState}
           onSave={onSave}
         />
       );

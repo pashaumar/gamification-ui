@@ -6,7 +6,7 @@ const ModalContent = ({
   handleUpdateData,
   modalData,
   dropdownOpenMap,
-  handleDropdownOpenChange,
+  handleDropdownState,
   handleDropdownSave,
 }) => {
   const { fields, field_list } = template.body;
@@ -21,7 +21,9 @@ const ModalContent = ({
           value={modalData[fieldKey]}
           handleUpdateData={handleUpdateData}
           open={dropdownOpenMap[fieldKey]}
-          onOpenChange={(isOpen) => handleDropdownOpenChange(fieldKey, isOpen)}
+          handleDropdownState={(isOpen) =>
+            handleDropdownState(fieldKey, isOpen)
+          }
           onSave={() => handleDropdownSave(fieldKey)}
         />
       ))}

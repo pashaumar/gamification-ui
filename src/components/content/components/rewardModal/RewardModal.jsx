@@ -42,7 +42,7 @@ const RewardModal = ({ handleOpenModal }) => {
     }));
   };
 
-  const handleDropdownOpenChange = (fieldKey, isOpen) => {
+  const handleDropdownState = (fieldKey, isOpen) => {
     setDropdownOpenMap((prev) => ({
       ...prev,
       [fieldKey]: isOpen,
@@ -95,7 +95,7 @@ const RewardModal = ({ handleOpenModal }) => {
           handleUpdateData={handleUpdateData}
           modalData={modalData}
           dropdownOpenMap={dropdownOpenMap}
-          handleDropdownOpenChange={handleDropdownOpenChange}
+          handleDropdownState={handleDropdownState}
           handleDropdownSave={handleDropdownSave}
         />
 

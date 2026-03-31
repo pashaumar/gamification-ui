@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import {
   Popover,
   PopoverContent,
@@ -11,10 +11,16 @@ import { getSelectedOption, replaceDynamicChars } from "../../utils";
 import DollarInputField from "../dropdown/DollarInputField";
 import PeriodInputField from "../dropdown/PeriodInputField";
 
-const DropdownField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
+const DropdownField = ({
+  fieldConfig,
+  value,
+  handleUpdateData,
+  fieldKey,
+  onSave,
+  open,
+  handleDropdownState,
+}) => {
   const { label, placeholder, options = [] } = fieldConfig;
-
-  const [open, setOpen] = useState(false);
 
   const selectedOption = useMemo(() => {
     return getSelectedOption(options, value?.selectedId);
@@ -99,7 +105,7 @@ const DropdownField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
         {label} <span className="text-[#E51C00]">*</span>
       </label>
 
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={handleDropdownState}>
         <PopoverTrigger asChild>
           <button
             type="button"
@@ -156,7 +162,7 @@ const DropdownField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
               variant="outline"
               className="h-[40px] flex-1 rounded-[10px] border-[#E3E3E3] text-[16px] text-[#303030] cursor-pointer"
               onClick={() => {
-                setOpen(false);
+                handleDropdownState(false);
               }}
             >
               Cancel
@@ -165,7 +171,8 @@ const DropdownField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
             <Button
               className="h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] text-[white] bg-[#C530C5] cursor-pointer"
               onClick={() => {
-                setOpen(false);
+                handleDropdownState(false);
+                onSave(fieldKey);
               }}
             >
               Save
