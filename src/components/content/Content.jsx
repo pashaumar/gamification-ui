@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import boardImg from "../../../public/board.png";
 import { cardsData } from "./constant";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+
+import RewardModal from "./components/rewardModal/RewardModal";
 
 import GiftIcon from "../icons/Gift";
 import CrownIcon from "../icons/Crown";
@@ -14,6 +16,12 @@ const ICON_MAP = {
 };
 
 const Content = () => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = (openModal) => {
+    setOpenModal(openModal);
+  };
+
   return (
     <div className="w-[960px]">
       <div
@@ -29,7 +37,12 @@ const Content = () => {
               Enable gamification to start crafting your custom reward system.
             </div>
           </div>
-          <Button className="bg-[#C530C5] rounded-[10px] w-[310px] h-[40px] items-center flex cursor-pointer">
+          <Button
+            className="bg-[#C530C5] rounded-[10px] w-[310px] h-[40px] items-center flex cursor-pointer"
+            onClick={() => {
+              handleOpenModal(true);
+            }}
+          >
             Enable Gamification
           </Button>
         </div>
@@ -60,6 +73,8 @@ const Content = () => {
           })}
         </div>
       </div>
+
+      {openModal && <RewardModal handleOpenModal={handleOpenModal} />}
     </div>
   );
 };

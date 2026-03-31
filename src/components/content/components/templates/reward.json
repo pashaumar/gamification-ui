@@ -18,7 +18,14 @@
             "id": "period",
             "label": "Posts X times every Y period",
             "extendedUIType": "Period_Input",
-            "dynamicChars": ["X", "Y"]
+            "dynamicChars": ["X", "Y"],
+            "period_options": [
+              { "label": "14 days", "value": "14 days" },
+              { "label": "1 month", "value": "1 month" },
+              { "label": "2 months", "value": "2 months" },
+              { "label": "3 months", "value": "3 months" },
+              { "label": "1 year", "value": "1 year" }
+            ]
           },
           {
             "id": "onboarded",
