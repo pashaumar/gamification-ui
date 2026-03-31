@@ -69,10 +69,25 @@ const DropdownField = ({
     });
   };
 
+  const isExtendedUIValid = () => {
+    const { X: xValue, Y: yValue } = value?.dynamicValues || {};
+
+    switch (selectedOption?.extendedUIType) {
+      case "Dollar_Input":
+        return xValue && xValue !== "";
+
+      case "Period_Input":
+        return xValue && xValue !== "" && yValue && yValue !== "";
+
+      default:
+        return true;
+    }
+  };
+
   const renderExtendedUI = () => {
     if (!selectedOption?.extendedUIType) return null;
 
-    switch (selectedOption.extendedUIType) {
+    switch (selectedOption?.extendedUIType) {
       case "Dollar_Input":
         return (
           <DollarInputField
@@ -87,9 +102,7 @@ const DropdownField = ({
             xValue={value?.dynamicValues?.X || ""}
             yValue={value?.dynamicValues?.Y || ""}
             periodOptions={selectedOption?.period_options || []}
-            onXChange={(nextValue) => {
-              updateDynamicValue("X", nextValue);
-            }}
+            onXChange={(nextValue) => updateDynamicValue("X", nextValue)}
             onYChange={(nextValue) => updateDynamicValue("Y", nextValue)}
           />
         );
@@ -169,7 +182,12 @@ const DropdownField = ({
             </Button>
 
             <Button
-              className="h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] text-[white] bg-[#C530C5] cursor-pointer"
+              disabled={!isExtendedUIValid()}
+              className={
+                "h-[40px] flex-1 rounded-[10px] border-[#C530C5] text-[16px] " +
+                "text-[white] bg-[#C530C5] cursor-pointer " +
+                "disabled:opacity-50 disabled:cursor-not-allowed"
+              }
               onClick={() => {
                 handleDropdownState(false);
                 onSave(fieldKey);
