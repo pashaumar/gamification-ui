@@ -25,11 +25,12 @@ const PeriodInputField = ({
         placeholder="eg: 4"
         className="
           h-[40px] w-[45%] px-3
-          border-2 border-[#C530C5]
-          focus:border-[#C530C5]
-          focus-visible:border-[#C530C5]
+          border border-[#E3E3E3]
+          focus:border-2 focus:border-[#C530C5]
+          focus-visible:border-2 focus-visible:border-[#C530C5]
           focus-visible:ring-0
           focus:outline-none
+          outline-none
         "
         autoFocus={true}
       />

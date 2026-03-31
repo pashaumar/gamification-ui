@@ -14,11 +14,12 @@ const DollarInputField = ({ value, onChange }) => {
         onChange={(e) => onChange(numbersOnly(e.target.value))}
         placeholder="e.g. 100"
         className="h-[40px] pl-8 
-             border-2 border-[#C530C5] 
-             focus:border-[#C530C5] 
-             focus-visible:border-[#C530C5]
+             border border-[#E3E3E3]
+             focus:border-2 focus:border-[#C530C5]
+             focus-visible:border-2 focus-visible:border-[#C530C5]
              focus-visible:ring-0 
-             focus:outline-none"
+             focus:outline-none
+             outline-none"
         autoFocus={true}
       />
     </div>
