@@ -79,8 +79,10 @@ const RewardModal = ({ handleOpenModal }) => {
     handleOpenModal(false);
   };
 
-  const isSaveDisabled =
-    !modalData.reward_event.selectedId || !modalData.reward_with.selectedId;
+  const isCreateButtonDisabled =
+    !modalData.reward_event.selectedId ||
+    !modalData.reward_with.selectedId ||
+    (modalData.reward_time.enabled && !modalData.reward_time.date);
 
   return (
     <Dialog open={true} onOpenChange={handleOpenModal}>
@@ -110,7 +112,7 @@ const RewardModal = ({ handleOpenModal }) => {
           <Button
             className="w-[168px] h-[40px] bg-[#C530C5] border border-[#C530C5] cursor-pointer"
             onClick={handleSave}
-            disabled={isSaveDisabled}
+            disabled={isCreateButtonDisabled}
           >
             Create Reward
           </Button>

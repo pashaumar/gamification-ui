@@ -53,7 +53,6 @@ const DropdownField = ({
       renderedLabel: item.label,
     });
 
-    // Close dropdown if option has no extended UI type
     if (!item.extendedUIType) {
       handleDropdownState(false);
       if (onSave) {

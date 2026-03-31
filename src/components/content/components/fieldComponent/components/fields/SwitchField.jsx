@@ -11,7 +11,7 @@ const SwitchField = ({ fieldConfig, value, handleUpdateData, fieldKey }) => {
   const handleToggle = (checked) => {
     handleUpdateData(fieldKey, {
       enabled: checked,
-      date: checked ? value?.date || null : null,
+      date: value?.date || null,
     });
 
     if (!checked) {
