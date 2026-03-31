@@ -127,7 +127,9 @@ const DropdownField = ({
         <PopoverTrigger asChild>
           <button
             type="button"
-            className="flex h-[40px] w-full items-center justify-between rounded-[8px] border-2 border-[#C530C5] bg-white px-4 text-left text-[16px] text-[#303030] cursor-pointer"
+            className={`flex h-[40px] w-full items-center justify-between rounded-[8px] border bg-white px-4 text-left text-[16px] text-[#303030] cursor-pointer transition-colors ${
+              open ? "border-[#C530C5] border-2" : "border-[#E3E3E3]"
+            }`}
           >
             <span>{selectedLabel || placeholder}</span>
             {open ? (
