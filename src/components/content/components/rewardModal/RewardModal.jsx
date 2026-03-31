@@ -18,8 +18,10 @@ const initialFormData = {
   },
   reward_with: {
     selectedId: "",
+    tierId: "",
     dynamicValues: {},
     renderedLabel: "",
+    tierName: "",
   },
   reward_time: {
     enabled: false,

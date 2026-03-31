@@ -25,6 +25,7 @@ const ModalContent = ({
             handleDropdownState(fieldKey, isOpen)
           }
           handleDropdownSave={() => handleDropdownSave(fieldKey)}
+          modalData={modalData}
         />
       ))}
     </div>

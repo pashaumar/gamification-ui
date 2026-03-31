@@ -1,15 +1,16 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Edit2 } from "lucide-react";
 
 import { getSelectedOption, replaceDynamicChars } from "../../utils";
 import DollarInputField from "../dollarInputField/DollarInputField";
 import PeriodInputField from "../periodInputField/PeriodInputField";
+import TierSelectionModal from "../tierSelectionModal/TierSelectionModal";
 
 const DropdownField = ({
   fieldConfig,
@@ -19,20 +20,34 @@ const DropdownField = ({
   handleDropdownSave,
   open,
   handleDropdownState,
+  modalData,
 }) => {
   const { label, placeholder, options = [] } = fieldConfig;
+  const [isTierModalOpen, setIsTierModalOpen] = useState(false);
 
   const selectedOption = useMemo(() => {
     return getSelectedOption(options, value?.selectedId);
   }, [options, value?.selectedId]);
 
   const selectedLabel = useMemo(() => {
-    if (!selectedOption) return placeholder || "";
+    if (!selectedOption) return "";
+
+    // For tier selection, dynamically update the label with the selected tier name
+    const isTierOption = selectedOption.id === "tier";
+    const hasTierName = value?.tierName;
+    const isTierLabel = selectedOption.label.includes(
+      "Upgrade Commission Tier",
+    );
+
+    if (isTierOption && hasTierName && isTierLabel) {
+      return `Upgrade to {${value.tierName}}`;
+    }
+
     return replaceDynamicChars(
       selectedOption.label,
       value?.dynamicValues || {},
     );
-  }, [selectedOption, value?.dynamicValues, placeholder]);
+  }, [selectedOption, value]);
 
   const updateFieldValue = (nextValue) => {
     handleUpdateModalData(fieldKey, nextValue);
@@ -41,6 +56,8 @@ const DropdownField = ({
   const clearSelection = () => {
     updateFieldValue({
       selectedId: "",
+      tierId: "",
+      tierName: "",
       dynamicValues: {},
       renderedLabel: "",
     });
@@ -52,6 +69,13 @@ const DropdownField = ({
       dynamicValues: {},
       renderedLabel: item.label,
     });
+
+    // Open tier selection modal when tier option is selected
+    if (item.extendedUIType === "Tier_Selection") {
+      setIsTierModalOpen(true);
+      handleDropdownState(false);
+      return;
+    }
 
     if (!item.extendedUIType) {
       handleDropdownState(false);
@@ -117,6 +141,37 @@ const DropdownField = ({
     }
   };
 
+  /**
+   * Handle opening the tier selection modal
+   * Prevents event propagation and opens the modal for editing tier selection
+   */
+  const handleEditTier = (e) => {
+    e.stopPropagation();
+    setIsTierModalOpen(true);
+  };
+
+  /**
+   * Render the edit button for tier selection
+   * Shows a pencil icon next to selected tier option
+   */
+  const renderTierEditButton = (isSelected, itemId) => {
+    const isTierOption = itemId === "tier";
+    const shouldShowEdit = isSelected && isTierOption;
+
+    if (!shouldShowEdit) return null;
+
+    return (
+      <button
+        type="button"
+        onClick={handleEditTier}
+        className="hover:text-[#C530C5] transition-colors p-1"
+        aria-label="Edit tier selection"
+      >
+        <Edit2 className="h-4 w-4" />
+      </button>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <label className="text-[14px] font-medium text-[#616161]">
@@ -127,11 +182,13 @@ const DropdownField = ({
         <PopoverTrigger asChild>
           <button
             type="button"
-            className={`flex h-[40px] w-full items-center justify-between rounded-[8px] border bg-white px-4 text-left text-[16px] text-[#303030] cursor-pointer transition-colors ${
-              open ? "border-[#C530C5] border-2" : "border-[#E3E3E3]"
-            }`}
+            className={`flex h-[40px] w-full items-center justify-between rounded-[8px] border bg-white px-4 text-left text-[16px] cursor-pointer transition-colors ${open ? "border-[#C530C5] border-2" : "border-[#E3E3E3]"}`}
           >
-            <span>{selectedLabel || placeholder}</span>
+            <span
+              className={`${selectedLabel ? "text-[#303030]" : "text-[#B5B5B5]"}`}
+            >
+              {selectedLabel || placeholder}
+            </span>
             {open ? (
               <ChevronUp className="h-5 w-5" />
             ) : (
@@ -146,29 +203,52 @@ const DropdownField = ({
         >
           {options.map((item) => {
             const isSelected = value?.selectedId === item.id;
-            const optionLabel = isSelected
-              ? replaceDynamicChars(item.label, value?.dynamicValues || {})
-              : item.label;
+
+            // For tier option, show the selected tier name if available
+            let optionLabel = item.label;
+            if (isSelected) {
+              if (item.id === "tier" && value?.tierName) {
+                optionLabel = `Upgrade to {${value.tierName}}`;
+              } else {
+                optionLabel = replaceDynamicChars(
+                  item.label,
+                  value?.dynamicValues || {},
+                );
+              }
+            }
+
+            // Disable tier option if reward_event is not "sales"
+            const isTierOption = item.id === "tier";
+            const isRewardEventSales =
+              modalData?.reward_event?.selectedId === "sales";
+            const isDisabled = isTierOption && !isRewardEventSales;
 
             return (
               <div key={item.id}>
                 <div
                   onClick={() => {
-                    if (isSelected) {
-                      clearSelection();
-                    } else {
-                      selectOption(item);
+                    if (!isDisabled) {
+                      if (isSelected) {
+                        clearSelection();
+                      } else {
+                        selectOption(item);
+                      }
                     }
                   }}
                   className={`cursor-pointer rounded-[8px] h-[40px] text-[16px] items-center flex p-2 ${
                     isSelected
                       ? "bg-[#FFF5FF] text-[#C530C5]"
-                      : "text-[#303030]"
+                      : isDisabled
+                        ? "bg-[#F5F5F5] text-[#999999] cursor-not-allowed"
+                        : "text-[#303030]"
                   }`}
                 >
                   <div className="flex items-center justify-between w-full">
                     <span>{optionLabel}</span>
-                    {isSelected ? <Check className="h-5 w-5" /> : null}
+                    <div className="flex items-center gap-2">
+                      {renderTierEditButton(isSelected, item.id)}
+                      {isSelected ? <Check className="h-5 w-5" /> : null}
+                    </div>
                   </div>
                 </div>
 
@@ -203,6 +283,31 @@ const DropdownField = ({
           )}
         </PopoverContent>
       </Popover>
+
+      {fieldKey === "reward_with" && (
+        <TierSelectionModal
+          isOpen={isTierModalOpen}
+          onClose={() => setIsTierModalOpen(false)}
+          options={
+            fieldConfig.options?.find((opt) => opt.id === "tier")
+              ?.tierOptions || []
+          }
+          selectedValue={value?.selectedId === "tier" ? value?.tierId : ""}
+          onTierSelect={(tierId, tierName) => {
+            updateFieldValue({
+              selectedId: "tier",
+              tierId: tierId,
+              dynamicValues: {},
+              renderedLabel: `Upgrade to {${tierName}}`,
+              tierName: tierName,
+            });
+            if (handleDropdownSave) {
+              handleDropdownSave(fieldKey);
+            }
+            setIsTierModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 };

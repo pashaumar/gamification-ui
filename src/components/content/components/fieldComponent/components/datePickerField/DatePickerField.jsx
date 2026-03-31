@@ -16,7 +16,9 @@ const DatePickerField = ({ value, open, onOpenChange, onSelect }) => {
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="flex h-[40px] w-full items-center gap-2 rounded-[10px] border border-[#C530C5] bg-white px-3 text-left text-[14px] text-[#303030]"
+          className={`flex h-[40px] w-full items-center gap-2 rounded-[10px] border bg-white px-3 text-left text-[14px] transition-all ${
+            open ? "border-2 border-[#C530C5]" : "border border-[#E3E3E3]"
+          } ${value ? "text-[#303030]" : "text-[#B5B5B5]"}`}
         >
           <CalendarDays className="h-4 w-4 text-[#616161]" />
           <span>{value ? formatDate(value) : "Select date"}</span>

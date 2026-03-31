@@ -10,6 +10,7 @@ const FieldComponent = ({
   open,
   handleDropdownState,
   handleDropdownSave,
+  modalData,
 }) => {
   switch (fieldConfig.uiType) {
     case "Dropdown":
@@ -22,6 +23,7 @@ const FieldComponent = ({
           open={!!open}
           handleDropdownState={handleDropdownState}
           handleDropdownSave={handleDropdownSave}
+          modalData={modalData}
         />
       );
 
