@@ -11,14 +11,13 @@
           {
             "id": "sales",
             "label": "Cross $X in sales",
-            "extendedUIType": "Dollar_Input",
-            "dynamicChars": ["X"]
+            "extendedUIType": "Dollar_Input"
           },
           {
             "id": "period",
             "label": "Posts X times every Y period",
             "extendedUIType": "Period_Input",
-            "dynamicChars": ["X", "Y"],
+
             "period_options": [
               { "label": "14 days", "value": "14 days" },
               { "label": "1 month", "value": "1 month" },
@@ -42,8 +41,7 @@
           {
             "id": "bonus",
             "label": "Flat $X bonus",
-            "extendedUIType": "Dollar_Input",
-            "dynamicChars": ["X"]
+            "extendedUIType": "Dollar_Input"
           },
           {
             "id": "period",
