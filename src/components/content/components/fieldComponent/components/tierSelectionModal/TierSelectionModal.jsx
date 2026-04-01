@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+// components
 import {
   Dialog,
   DialogContent,
@@ -7,12 +9,14 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+// icons
+import { ChevronDown, ChevronUp, Check } from "lucide-react";
 
 const TierSelectionModal = ({
   isOpen,

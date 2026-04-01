@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from "react";
+
+// components
 import {
   Popover,
   PopoverContent,
@@ -10,12 +12,15 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Check, ChevronDown, ChevronUp, Edit2 } from "lucide-react";
-
-import { getSelectedOption, replaceDynamicChars } from "../../utils";
 import DollarInputField from "../dollarInputField/DollarInputField";
 import PeriodInputField from "../periodInputField/PeriodInputField";
 import TierSelectionModal from "../tierSelectionModal/TierSelectionModal";
+
+// icons
+import { Check, ChevronDown, ChevronUp, Edit2 } from "lucide-react";
+
+// utils
+import { getSelectedOption, replaceDynamicChars } from "../../utils";
 
 const DropdownField = ({
   fieldConfig,

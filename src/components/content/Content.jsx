@@ -1,14 +1,21 @@
 import React, { useState } from "react";
+
+// images
 import boardImg from "../../../public/board.png";
+
+// static data
 import { cardsData } from "./constant";
+
+// components
+import RewardModal from "./components/rewardModal/RewardModal";
 import { Button } from "@/components/ui/button";
 
-import RewardModal from "./components/rewardModal/RewardModal";
-
+// icons
 import GiftIcon from "../icons/Gift";
 import CrownIcon from "../icons/Crown";
 import IncentivesIcon from "../icons/Incentives";
 
+// constant
 const ICON_MAP = {
   gift: <GiftIcon />,
   crown: <CrownIcon />,

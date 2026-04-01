@@ -1,5 +1,9 @@
 import React from "react";
+
+// components
 import FieldComponent from "../fieldComponent/FieldComponent";
+
+// modal config
 import template from "../templates/reward.json";
 
 const ModalContent = ({

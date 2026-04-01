@@ -1,7 +1,9 @@
 import React from "react";
 
+// icons
 import NotificationIcon from "../icons/Notification";
 
+// images
 import ProfileImg from "../../../public/profileImage.jpg";
 
 const Header = () => {

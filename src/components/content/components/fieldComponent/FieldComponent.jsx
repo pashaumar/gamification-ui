@@ -1,4 +1,6 @@
 import React from "react";
+
+// components
 import DropdownField from "./components/dropdownField/DropdownField";
 import SwitchField from "./components/switchField/SwitchField";
 

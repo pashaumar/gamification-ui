@@ -1,9 +1,13 @@
 import React from "react";
+
+// components
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+// icons
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 const PeriodSelect = ({ value, options, open, onOpenChange, onSelect }) => {

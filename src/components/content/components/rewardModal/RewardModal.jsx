@@ -1,4 +1,6 @@
 import { useState } from "react";
+
+// components
 import {
   Dialog,
   DialogContent,
@@ -12,9 +14,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import ModalContent from "../modalContent/ModalContent";
 
+// constant
 const initialFormData = {
   reward_event: {
     selectedId: "",

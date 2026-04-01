@@ -1,7 +1,6 @@
 import React from "react";
 
-import { sidebarTopList, sidebarFooterList } from "./constant";
-
+// components
 import HomeIcon from "../icons/Home";
 import ApplicationsIcon from "../icons/Applications";
 import InsightsIcon from "../icons/Insights";
@@ -10,6 +9,10 @@ import GamificationIcon from "../icons/Gamification";
 import ProfileIcon from "../icons/Profile";
 import LogoIcon from "../icons/Logo";
 
+// static data
+import { sidebarTopList, sidebarFooterList } from "./constant";
+
+// constant
 const ICON_MAP = {
   home: <HomeIcon />,
   applications: <ApplicationsIcon />,

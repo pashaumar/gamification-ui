@@ -1,5 +1,9 @@
 import React from "react";
+
+// components
 import { Input } from "@/components/ui/input";
+
+// utils
 import { numbersOnly } from "../../utils";
 
 const DollarInputField = ({ value, onChange }) => {
