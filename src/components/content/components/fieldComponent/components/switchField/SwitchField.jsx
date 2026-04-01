@@ -15,6 +15,7 @@ const SwitchField = ({
 
   const isEnabled = !!value?.enabled;
 
+  // Toggle handler for the switch component
   const handleToggle = (checked) => {
     handleUpdateModalData(fieldKey, {
       enabled: checked,
@@ -26,6 +27,7 @@ const SwitchField = ({
     }
   };
 
+  // Date select handler for the date picker component
   const handleDateSelect = (date) => {
     handleUpdateModalData(fieldKey, {
       ...value,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 // components
 import {
@@ -39,26 +39,30 @@ const initialFormData = {
 const RewardModal = ({ handleOpenModal }) => {
   const [modalData, setModalData] = useState(initialFormData);
 
+  // event and bonus dropdown control state
   const [dropdownOpenMap, setDropdownOpenMap] = useState({
     reward_event: false,
     reward_with: false,
   });
 
-  const handleUpdateModalData = (fieldKey, newValue) => {
+  // modal data update handler
+  const handleUpdateModalData = useCallback((fieldKey, newValue) => {
     setModalData((prev) => ({
       ...prev,
       [fieldKey]: newValue,
     }));
-  };
+  }, []);
 
-  const handleDropdownState = (fieldKey, isOpen) => {
+  // dropdown state handler
+  const handleDropdownState = useCallback((fieldKey, isOpen) => {
     setDropdownOpenMap((prev) => ({
       ...prev,
       [fieldKey]: isOpen,
     }));
-  };
+  }, []);
 
-  const handleDropdownSave = (fieldKey) => {
+  // dropdown data save handler
+  const handleDropdownSave = useCallback((fieldKey) => {
     if (fieldKey === "reward_event") {
       setDropdownOpenMap({
         reward_event: false,
@@ -73,8 +77,9 @@ const RewardModal = ({ handleOpenModal }) => {
         reward_with: false,
       }));
     }
-  };
+  }, []);
 
+  // modal cancel button click handler
   const handleCancel = () => {
     setModalData(initialFormData);
     setDropdownOpenMap({
@@ -84,15 +89,18 @@ const RewardModal = ({ handleOpenModal }) => {
     handleOpenModal(false);
   };
 
+  // modal create button click handler
   const handleCreate = () => {
     handleOpenModal(false);
   };
 
+  // create button disabled state
   const isCreateButtonDisabled =
     !modalData.reward_event.selectedId ||
     !modalData.reward_with.selectedId ||
     (modalData.reward_time.enabled && !modalData.reward_time.date);
 
+  // Tooltip message generator based on the current state of the form
   const getTooltipMessage = () => {
     const { reward_event, reward_with, reward_time } = modalData;
 

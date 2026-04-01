@@ -25,6 +25,7 @@ const ICON_MAP = {
 const Content = () => {
   const [openModal, setOpenModal] = useState(false);
 
+  // reward modal handler
   const handleOpenModal = (openModal) => {
     setOpenModal(openModal);
   };

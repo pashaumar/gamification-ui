@@ -35,9 +35,7 @@ const DropdownField = ({
   const { label, placeholder, options = [] } = fieldConfig;
   const [isTierModalOpen, setIsTierModalOpen] = useState(false);
 
-  const selectedOption = useMemo(() => {
-    return getSelectedOption(options, value?.selectedId);
-  }, [options, value?.selectedId]);
+  const selectedOption = getSelectedOption(options, value?.selectedId);
 
   const selectedLabel = useMemo(() => {
     if (!selectedOption) return "";
@@ -63,6 +61,7 @@ const DropdownField = ({
     handleUpdateModalData(fieldKey, nextValue);
   };
 
+  // Clear selection handler
   const clearSelection = () => {
     updateFieldValue({
       selectedId: "",
@@ -73,6 +72,7 @@ const DropdownField = ({
     });
   };
 
+  // Option select handler
   const selectOption = (item) => {
     updateFieldValue({
       selectedId: item.id,
@@ -92,6 +92,7 @@ const DropdownField = ({
     }
   };
 
+  // Dynamic value update handler for extended UI components
   const updateDynamicValue = (key, nextValue) => {
     const nextDynamicValues = {
       ...value?.dynamicValues,
@@ -107,6 +108,7 @@ const DropdownField = ({
     });
   };
 
+  // Determine if the save button should be disabled based on the extended UI type and dynamic values
   const getSaveDisabledState = () => {
     const { X: xValue, Y: yValue } = value?.dynamicValues || {};
 
@@ -122,6 +124,7 @@ const DropdownField = ({
     }
   };
 
+  // Get tooltip message for save button when disabled
   const getSaveButtonTooltip = () => {
     const { X: xValue } = value?.dynamicValues || {};
 
@@ -142,6 +145,7 @@ const DropdownField = ({
     return "";
   };
 
+  // Render the appropriate extended UI component based on the selected option's extendedUIType
   const renderExtendedUI = () => {
     switch (selectedOption?.extendedUIType) {
       case "Dollar_Input":
@@ -168,11 +172,13 @@ const DropdownField = ({
     }
   };
 
+  // Handler for tier edit button click
   const handleEditTier = (e) => {
     e.stopPropagation();
     setIsTierModalOpen(true);
   };
 
+  // Render the edit button for tier option when it's selected
   const renderTierEditButton = (isSelected, itemId) => {
     const isTierOption = itemId === "tier";
     const shouldShowEdit = isSelected && isTierOption;

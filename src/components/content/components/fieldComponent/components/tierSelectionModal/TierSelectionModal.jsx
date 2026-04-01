@@ -34,6 +34,7 @@ const TierSelectionModal = ({
     }
   }, [isOpen]);
 
+  // Handler for saving the selected tier
   const handleSave = () => {
     if (selectedTier) {
       const selectedTierData = options.find((opt) => opt.id === selectedTier);
