@@ -9,7 +9,7 @@ const Header = () => {
     <div className="w-full flex justify-center items-center h-[64px]">
       <div className="w-[960px] flex justify-between">
         <div className="text-[18px]">Gamification</div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <NotificationIcon />
           <img
             src={ProfileImg}
