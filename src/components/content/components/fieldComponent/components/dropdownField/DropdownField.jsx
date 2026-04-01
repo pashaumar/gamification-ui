@@ -75,7 +75,6 @@ const DropdownField = ({
       renderedLabel: item.label,
     });
 
-    // Open tier selection modal when tier option is selected
     if (item.extendedUIType === "Tier_Selection") {
       setIsTierModalOpen(true);
       handleDropdownState(false);
@@ -164,19 +163,11 @@ const DropdownField = ({
     }
   };
 
-  /**
-   * Handle opening the tier selection modal
-   * Prevents event propagation and opens the modal for editing tier selection
-   */
   const handleEditTier = (e) => {
     e.stopPropagation();
     setIsTierModalOpen(true);
   };
 
-  /**
-   * Render the edit button for tier selection
-   * Shows a pencil icon next to selected tier option
-   */
   const renderTierEditButton = (isSelected, itemId) => {
     const isTierOption = itemId === "tier";
     const shouldShowEdit = isSelected && isTierOption;
@@ -227,7 +218,6 @@ const DropdownField = ({
           {options.map((item) => {
             const isSelected = value?.selectedId === item.id;
 
-            // For tier option, show the selected tier name if available
             let optionLabel = item.label;
             if (isSelected) {
               if (item.id === "tier" && value?.tierName) {
@@ -240,7 +230,6 @@ const DropdownField = ({
               }
             }
 
-            // Disable tier option if reward_event is not "sales"
             const isTierOption = item.id === "tier";
             const isRewardEventSales =
               modalData?.reward_event?.selectedId === "sales";
